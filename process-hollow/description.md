@@ -1,4 +1,4 @@
-# Hollow64.c - Process Hollowing (Variant)
+# Process Hollowing: Suspended Process Shellcode Injection
 
 ## Technique
 
