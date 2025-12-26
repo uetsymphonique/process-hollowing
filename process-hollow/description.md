@@ -61,3 +61,14 @@ Hollow64.exe <target_process> <shellcode.bin>
 - Cross-process `VirtualAllocEx` with `PAGE_EXECUTE_READWRITE`
 - RIP pointing to unbacked executable memory
 - API sequence: CreateProcess → VirtualAllocEx → WriteProcessMemory → SetThreadContext → ResumeThread
+
+## Log Sources Coverage
+
+| Data Component                | Log Source                           | Channel/Event                                                      | Detected?                     |
+| ----------------------------- | ------------------------------------ | ------------------------------------------------------------------ | ----------------------------- |
+| Process Creation (DC0032)     | WinEventLog:Sysmon                   | EventCode=1                                                        | ✅ Yes                        |
+| Process Access (DC0035)       | WinEventLog:Sysmon                   | EventCode=10                                                       | ✅ Yes                        |
+| Process Modification (DC0020) | WinEventLog:Sysmon                   | EventCode=8                                                        | ❌ No (no CreateRemoteThread) |
+| OS API Execution (DC0021)     | etw:Microsoft-Windows-Kernel-Process | VirtualAllocEx, WriteProcessMemory, SetThreadContext, ResumeThread | ✅ Yes                        |
+
+> **Note:** `NtUnmapViewOfSection` is NOT used in this technique, so ETW logs for that API will be absent.
